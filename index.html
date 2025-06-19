@@ -150,7 +150,7 @@
         timestamp: new Date().toISOString()
       };
       try {
-        await fetch('http://localhost:3000/api/track', {
+        await fetch('https://analyticstool-fpec.onrender.com/api/track', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(eventData)
