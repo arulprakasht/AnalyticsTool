@@ -39,24 +39,32 @@ app.get('/', (req, res) => {
 // Sign-Up Endpoint
 app.post('/api/signup', async (req, res) => {
   try {
+    console.log('Signup request:', req.body); // Log incoming data
     const { email } = req.body;
+    if (!email) {
+      return res.status(400).json({ message: 'Email is required' });
+    }
     const user = new User({ email });
     await user.save();
     res.json({ message: 'Sign-up successful' });
   } catch (error) {
-    res.status(400).json({ message: 'Error signing up' });
+    console.error('Signup error:', error); // Log errors
+    res.status(400).json({ message: 'Error signing up: ' + error.message });
   }
 });
 
 // Analytics Tracking Endpoint
+
 app.post('/api/track', async (req, res) => {
   try {
+    console.log('Track request:', req.body); // Log incoming data
     const eventData = req.body;
     const analytics = new Analytics(eventData);
     await analytics.save();
     res.json({ message: 'Event tracked' });
   } catch (error) {
-    res.status(400).json({ message: 'Error tracking event' });
+    console.error('Track error:', error); // Log errors
+    res.status(400).json({ message: 'Error tracking event: ' + error.message });
   }
 });
   // Get All Users Endpoint - AP
